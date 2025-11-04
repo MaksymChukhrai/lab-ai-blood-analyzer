@@ -1,16 +1,19 @@
 import { useState, useRef, useCallback } from "react";
 import { t } from "i18next";
 import Tesseract from "tesseract.js";
+import { useNavigate } from "react-router-dom";
 import {
   FILE_TYPE_PDF,
   OCR_LANGUAGES,
   OCR_STATUS_RECOGNIZING,
 } from "@/constants/fileUpload";
 import { useSendParsedDataMutation } from "@/store/api/uploadFileApi";
+import { PATHS } from "@/constants/navigation";
 import { validateFile } from "./utils/fileUtils";
 import { extractTextFromPDF } from "./utils/pdfUtils";
 
 export const useUploadCard = (uploadEnabled: boolean = true) => {
+  const navigate = useNavigate();
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [ocrText, setOcrText] = useState<string | null>(null);
@@ -47,7 +50,7 @@ export const useUploadCard = (uploadEnabled: boolean = true) => {
       let text = "";
 
       if (file.type === FILE_TYPE_PDF) {
-        text = await extractTextFromPDF(file);
+        text = await extractTextFromPDF(file, (p) => setOcrProgress(p));
       } else {
         const result = await Tesseract.recognize(file, OCR_LANGUAGES, {
           logger: (m) => {
@@ -121,6 +124,10 @@ export const useUploadCard = (uploadEnabled: boolean = true) => {
     }
   }, [selectedFile, ocrText, sendParsedData]);
 
+  const handleBack = () => {
+    navigate(PATHS.DEFAULT);
+  };
+
   const handleDeleteFile = useCallback(() => {
     setSelectedFile(null);
 
@@ -164,6 +171,7 @@ export const useUploadCard = (uploadEnabled: boolean = true) => {
     handleBrowseClick,
     handleUpload,
     handleContinue,
+    handleBack,
     handleDeleteFile,
     isDragging,
     selectedFileName,
