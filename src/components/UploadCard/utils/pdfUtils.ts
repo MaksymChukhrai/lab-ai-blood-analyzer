@@ -40,45 +40,51 @@ export async function extractTextFromPDF(
       let combinedOCRText = "";
 
       for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-        const page = await pdf.getPage(pageNum);
-        const viewport = page.getViewport({ scale: OCR_SCALE_FACTOR });
-        const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d");
+        try {
+          const page = await pdf.getPage(pageNum);
+          const viewport = page.getViewport({ scale: OCR_SCALE_FACTOR });
+          const canvas = document.createElement("canvas");
+          const context = canvas.getContext("2d");
 
-        if (!context) throw new Error(t("error.canvas"));
+          if (!context) throw new Error(t("error.canvas"));
 
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
 
-        const renderParams = {
-          canvasContext: context,
-          viewport: viewport,
-          canvas: canvas,
-        };
+          const renderParams = {
+            canvasContext: context,
+            viewport: viewport,
+            canvas: canvas,
+          };
 
-        await page.render(renderParams).promise;
+          await page.render(renderParams).promise;
 
-        const imageData = canvas.toDataURL("image/png");
+          const imageData = canvas.toDataURL("image/png");
 
-        const result = await Tesseract.recognize(imageData, OCR_LANGUAGES, {
-          logger: (m) => {
-            if (
-              m.status === OCR_STATUS_RECOGNIZING &&
-              m.progress &&
-              onProgress
-            ) {
-              const totalProgress =
-                ((pageNum - 1) / pdf.numPages) * 100 +
-                (m.progress * 100) / pdf.numPages;
+          const result = await Tesseract.recognize(imageData, OCR_LANGUAGES, {
+            logger: (m) => {
+              if (
+                m.status === OCR_STATUS_RECOGNIZING &&
+                m.progress &&
+                onProgress
+              ) {
+                const totalProgress =
+                  ((pageNum - 1) / pdf.numPages) * 100 +
+                  (m.progress * 100) / pdf.numPages;
 
-              onProgress(Math.min(100, Math.round(totalProgress)));
-            }
-          },
-        });
-        combinedOCRText += result.data.text + "\n";
+                onProgress(Math.min(100, Math.round(totalProgress)));
+              }
+            },
+          });
 
-        canvas.width = 0;
-        canvas.height = 0;
+          combinedOCRText += result.data.text + "\n";
+        } catch {
+          continue;
+        } finally {
+          const canvas = document.createElement("canvas");
+          canvas.width = 0;
+          canvas.height = 0;
+        }
       }
 
       onProgress?.(100);

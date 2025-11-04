@@ -47,7 +47,9 @@ export const useUploadCard = (uploadEnabled: boolean = true) => {
       let text = "";
 
       if (file.type === FILE_TYPE_PDF) {
-        text = await extractTextFromPDF(file, (p) => setOcrProgress(p));
+        text = await extractTextFromPDF(file, (progressPercent) =>
+          setOcrProgress(progressPercent),
+        );
       } else {
         const result = await Tesseract.recognize(file, OCR_LANGUAGES, {
           logger: (m) => {
