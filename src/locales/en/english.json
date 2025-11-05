@@ -278,5 +278,30 @@
       "desc": "Physical activities to improve your health markers"
     },
     "continue": "Continue to Review"
+  },
+  "review": {
+    "title": "Review your extracted markers from test results",
+    "description": "Please review and edit the extracted values if needed",
+    "patientInfo": "Patient information",
+    "birthDate": "Birth date",
+    "birthDatePlaceholder": "dd-mm-yyyy",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "bloodMarkers": "Blood Markers",
+    "marker": "Marker",
+    "value": "Value",
+    "normalRange": "Normal Range",
+    "addRow": "+ Add row",
+    "commentLabel": "Do you have any questions about your results? Please indicate if you have any chronic conditions or are pregnant –",
+    "commentPlaceholder": "e.g. Why is my cholesterol high? What can I do to improve my vitamin D levels?",
+    "generate": "Generate Analysis",
+    "errorLoading": "Error loading blood markers",
+    "errorDescription": "Please try again or contact support if the problem persists."
+  },
+  "common": {
+    "back": "Back",
+    "loading": "Loading...",
+    "continue": "Continue"
   }
 }
