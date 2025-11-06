@@ -14,8 +14,6 @@
     "prepare": "husky",
     "test": "jest",
     "test:watch": "jest --watch",
-    "heroku-postbuild": "npm install rollup && npm run build",
-    "postinstall": "npm rebuild esbuild",
     "start": "serve -s dist -l $PORT"
   },
   "dependencies": {
