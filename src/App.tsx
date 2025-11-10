@@ -8,6 +8,7 @@ import Landing from "pages/LandingPage/Landing";
 import UploadPage from "pages/UploadPage/UploadPage";
 import { TermsOfServicePage } from "pages/TermsOfServicePage/TermsOfServicePage";
 import { PrivacyPolicyPage } from "pages/PrivacyPolicyPage";
+import LoaderPage from "pages/LoaderPage";
 import { ReviewPage } from "pages/ReviewPage";
 import { ErrorPageTemplate } from "components/ErrorPageTemplate";
 import { PrivateRoute } from "components/PrivateRoute";
@@ -41,6 +42,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <OptionsPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={PATHS.LOADER}
+              element={
+                <PrivateRoute>
+                  <LoaderPage />
                 </PrivateRoute>
               }
             />
