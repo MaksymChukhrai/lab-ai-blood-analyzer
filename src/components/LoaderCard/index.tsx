@@ -24,7 +24,7 @@ import {
 
 function LoaderCard() {
   const { t } = useTranslation();
-  const { handleBack } = useLoader();
+  const { handleBack, handleContinueSelf } = useLoader();
   const [progress, setProgress] = useState(0);
   const [done, setDone] = useState(false);
   const [animateSuccess, setAnimateSuccess] = useState(false);
@@ -71,8 +71,12 @@ function LoaderCard() {
         <IconButton onClick={handleBack}>
           <img src={arrow} alt="arrow" />
         </IconButton>
-        <ContinueButton variant="contained" disabled={!animateSuccess}>
-          {t("card.continue")}
+        <ContinueButton
+          variant="contained"
+          disabled={!animateSuccess}
+          onClick={handleContinueSelf}
+        >
+          {t("loader.continue1")}
         </ContinueButton>
       </ButtonsBox>
     </LoaderBox>

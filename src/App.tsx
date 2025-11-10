@@ -44,7 +44,14 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route path={PATHS.LOADER} element={<LoaderPage />} />
+            <Route
+              path={PATHS.LOADER}
+              element={
+                <PrivateRoute>
+                  <LoaderPage />
+                </PrivateRoute>
+              }
+            />
             <Route
               path={PATHS.REVIEW}
               element={

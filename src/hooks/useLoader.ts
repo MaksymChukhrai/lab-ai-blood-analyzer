@@ -11,8 +11,13 @@ export const useLoader = () => {
     navigate(PATHS.LOADER, { state: { loaderStep: nextLoaderStep } });
   };
 
+  const handleContinueSelf = () => {
+    navigate(PATHS.REVIEW);
+  };
+
   return {
     handleBack,
     handleContinue,
+    handleContinueSelf,
   };
 };
