@@ -49,7 +49,6 @@ export const bloodMarkersSlice = createSlice({
       state,
       action: PayloadAction<{ id: string; name: string }>,
     ) => {
-      // const { index, name } = action.payload;
       const { id, name } = action.payload;
       const marker = state.markers.find((m) => m.id === id);
       if (marker) {
