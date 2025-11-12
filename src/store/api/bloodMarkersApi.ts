@@ -1,6 +1,7 @@
 import { apiSlice } from "./apiSlice";
 
 export interface BloodMarker {
+  id: string;
   name: string;
   value: string;
   unit: string;
@@ -48,5 +49,8 @@ export const bloodMarkersApi = apiSlice.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetBloodMarkersQuery, useGenerateAnalysisMutation } =
-  bloodMarkersApi;
+export const {
+  useGetBloodMarkersQuery,
+  useGenerateAnalysisMutation,
+  useLazyGetBloodMarkersQuery,
+} = bloodMarkersApi;

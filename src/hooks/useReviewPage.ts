@@ -42,32 +42,36 @@ export const useReviewPage = () => {
     if (data && markers.length === 0) {
       dispatch(setBloodMarkersData(data));
 
+      if (data.age === null) setBirthDate("");
       const calculatedBirthYear = new Date().getFullYear() - data.age;
       setBirthDate(`01/01/${calculatedBirthYear}`);
     }
   }, [data, dispatch, markers.length]);
+
   useEffect(() => {
+    if (age === null) setBirthDate("");
+
     if (age > 0 && !birthDate) {
       const calculatedBirthYear = new Date().getFullYear() - age;
       setBirthDate(`01/01/${calculatedBirthYear}`);
     }
   }, [age, birthDate]);
 
-  const handleMarkerNameChange = (index: number, name: string): void => {
-    dispatch(updateMarkerName({ index, name }));
+  const handleMarkerNameChange = (id: string, name: string): void => {
+    dispatch(updateMarkerName({ id, name }));
   };
 
-  const handleMarkerValueChange = (index: number, value: string): void => {
+  const handleMarkerValueChange = (id: string, value: string): void => {
     const numericValue = value.replace(/[^0-9.]/g, "");
-    dispatch(updateMarkerValue({ index, value: numericValue }));
+    dispatch(updateMarkerValue({ id, value: numericValue }));
   };
 
   const handleAddMarker = (): void => {
     dispatch(addMarker());
   };
 
-  const handleRemoveMarker = (index: number): void => {
-    dispatch(removeMarker(index));
+  const handleRemoveMarker = (id: string): void => {
+    dispatch(removeMarker(id));
   };
 
   const handleCommentChange = (value: string): void => {
@@ -111,7 +115,6 @@ export const useReviewPage = () => {
       };
 
       await generateAnalysis(analysisData).unwrap();
-
       navigate(STEP_PATHS.review);
     } catch (error) {
       console.error("Failed to generate analysis:", error);
