@@ -19,6 +19,7 @@ export const authService = {
 
     if (!accessToken || !refreshToken) {
       console.error("OAuth callback: Missing tokens in URL");
+
       return false;
     }
 

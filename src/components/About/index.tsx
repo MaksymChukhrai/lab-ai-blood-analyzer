@@ -25,6 +25,7 @@ import {
 
 function About() {
   const { t } = useTranslation();
+
   return (
     <>
       <GradientBox id="about">
