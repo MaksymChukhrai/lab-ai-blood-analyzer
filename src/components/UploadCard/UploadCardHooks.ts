@@ -115,6 +115,7 @@ export const useUploadCard = (uploadEnabled: boolean = true) => {
         setSelectedFile(null);
         setOcrText(null);
         setShowLoader(false);
+
         return;
       }
 
@@ -135,6 +136,7 @@ export const useUploadCard = (uploadEnabled: boolean = true) => {
   const handleContinue = useCallback(async () => {
     if (uploadedFile.uploadId && hasUploadedFile) {
       navigate(PATHS.OPTION);
+
       return;
     }
 
@@ -144,6 +146,7 @@ export const useUploadCard = (uploadEnabled: boolean = true) => {
 
     if (!fileName || !fileType || !textToUpload) {
       setErrorMessage(t("error.noFile"));
+
       return;
     }
 
@@ -162,12 +165,14 @@ export const useUploadCard = (uploadEnabled: boolean = true) => {
       if (!analysis.isMedical) {
         setErrorMessage(t("error.noMedicalData"));
         setIsUploading(false);
+
         return;
       }
 
       if (!analysis.hasBloodMarkers) {
         setErrorMessage(t("error.noBloodMarkers"));
         setIsUploading(false);
+
         return;
       }
 
@@ -184,7 +189,7 @@ export const useUploadCard = (uploadEnabled: boolean = true) => {
       await getBloodMarkers().unwrap();
     } catch (err) {
       const message =
-        err instanceof Error ? err.message : t("error.uploadFailed");
+        err instanceof Error ? err.message : t("error.unknownError");
       setErrorMessage(message);
     } finally {
       setIsUploading(false);

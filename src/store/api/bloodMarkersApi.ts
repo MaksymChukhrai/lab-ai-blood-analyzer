@@ -36,11 +36,11 @@ export interface AnalysisResponse {
 export const bloodMarkersApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getBloodMarkers: builder.query<BloodMarkersResponse, void>({
-      query: () => "/medical/analysis/blood-markers",
+      query: () => "/api/medical/analysis/blood-markers",
     }),
     generateAnalysis: builder.mutation<AnalysisResponse, AnalysisRequest>({
       query: (data) => ({
-        url: "/medical/analysis/results",
+        url: "/api/medical/analysis/results",
         method: "POST",
         body: data,
       }),

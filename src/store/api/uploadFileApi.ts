@@ -23,7 +23,7 @@ export const uploadFileApi = apiSlice.injectEndpoints({
     sendParsedData: builder.mutation<ParsedDataResponse, ParsedDataPayload>({
       query: (data) => {
         return {
-          url: "/upload/parsed-data",
+          url: "/api/upload/parsed-data",
           method: "POST",
           body: data,
         };
