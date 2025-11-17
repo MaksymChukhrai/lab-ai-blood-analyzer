@@ -3,6 +3,7 @@ import counterReducer from "./slices/counterSlice";
 import optionReducer from "./slices/optionSlice";
 import bloodMarkersReducer from "./slices/bloodMarkersSlice";
 import uploadFileReducer from "./slices/uploadFileSlice";
+import analysisResultReducer from "./slices/analysisResultSlice";
 import { apiSlice } from "./api/apiSlice";
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
     option: optionReducer,
     bloodMarkers: bloodMarkersReducer,
     uploadFile: uploadFileReducer,
+    analysisResult: analysisResultReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>

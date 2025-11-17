@@ -27,8 +27,9 @@
     "@reduxjs/toolkit": "^2.9.0",
     "@testing-library/react": "^16.3.0",
     "axios": "^1.12.2",
-    "esbuild": "^0.24.0",
     "date-fns": "^4.1.0",
+    "esbuild": "^0.24.0",
+    "html2pdf.js": "^0.12.1",
     "i18next": "^25.5.2",
     "js-cookie": "^3.0.5",
     "path": "^0.12.7",
@@ -50,6 +51,7 @@
   "devDependencies": {
     "@eslint/js": "^9.36.0",
     "@testing-library/jest-dom": "^6.9.1",
+    "@types/html2pdf.js": "^0.10.0",
     "@types/jest": "^30.0.0",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^24.6.1",

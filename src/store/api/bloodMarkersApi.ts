@@ -27,10 +27,48 @@ export interface AnalysisRequest {
   selectedOptions: string[];
 }
 
+export interface MarkerResult {
+  name: string;
+  value: string;
+  unit: string;
+  normalRange: string;
+  recommendation: string;
+  indicator: string;
+}
+
+export interface Recommendations {
+  name: string;
+  value: string;
+  items: Array<{
+    name: string;
+    recommendations: string;
+  }>;
+}
+
+export interface FinalAssessment {
+  overallHealthStatus: string;
+  recommendationSummary: string;
+}
+
 export interface AnalysisResponse {
-  success: boolean;
-  analysisId: string;
+  age: number;
+  gender: string;
+  markers: MarkerResult[];
+  userCommentResponse: string;
+  recommendations: Recommendations[];
+  finalAssessment: FinalAssessment;
+}
+
+export interface UploadAnalysis {
+  isMedical: boolean;
+  hasBloodMarkers: boolean;
+}
+
+export interface UploadFileResponse {
   message: string;
+  saved: boolean;
+  id: string;
+  analysis: UploadAnalysis;
 }
 
 export const bloodMarkersApi = apiSlice.injectEndpoints({
