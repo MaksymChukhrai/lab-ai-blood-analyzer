@@ -240,7 +240,7 @@ export const theme = createTheme({
     },
     legalSectionBody: {
       fontFamily: FONT_FAMILY.POPPINS,
-      fontWeight: FONT_WEIGHT.MEDIUM,
+      fontWeight: FONT_WEIGHT.REGULAR,
       fontStyle: "normal",
       fontSize: "24px",
       lineHeight: "35px",

@@ -47,7 +47,7 @@
     "description": "AI-powered blood test analysis that helps you understand your health and make informed decisions about your wellbeing.",
     "companyTitle": "Company",
     "supportTitle": "Support",
-    "copyright": "© 2025 Lab AI. All rights reserved. | Made with heart for better health.",
+    "copyright": "© 2025 Lab AI Blood Test Analyzer. All rights reserved.",
     "links": {
       "useCases": "Use Cases",
       "aboutUs": "About Us",
@@ -111,7 +111,7 @@
     "title": "Welcome to Lab AI",
     "subtitle": "Sign in to access your personalized blood test analysis. Your data is secure and private.",
     "google": "Sign in with Google",
-    "facebook": "Sign in with Facebook",
+    "linkedin": "Sign in with Linkedin",
     "divider": "or",
     "emailLabel": "Email address",
     "emailPlaceholder": "Enter your email address",
