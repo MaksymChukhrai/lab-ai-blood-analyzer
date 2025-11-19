@@ -43,6 +43,7 @@ declare module "@mui/material/Typography" {
 }
 
 const FONT_SIZES = {
+  fontSize11: "11px",
   fontSize12: "12px",
   fontSize13: "13px",
   fontSize14: "14px",
@@ -68,6 +69,7 @@ const SHADOWS = {
 };
 
 const LINE_HEIGHTS = {
+  lineHeight15: "15px",
   lineHeight20: "20px",
   lineHeight24: "24px",
   lineHeight25: "25px",
