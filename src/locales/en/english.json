@@ -155,7 +155,8 @@
     "text1": "To make healthcare more accessible and understandable by providing AI-powered insights that help people make informed decisions about their health and wellbeing.",
     "text2": "Your health data is sacred. We use enterprise-grade encryption and never share your personal information with third parties.",
     "text3": "Our AI models are trained on peer-reviewed medical literature and validated by healthcare professionals to ensure accuracy.",
-    "text4": "Healthcare insights shouldn't be limited by geography or economics. We're making advanced health analysis available to everyone."
+    "text4": "Healthcare insights shouldn't be limited by geography or economics. We're making advanced health analysis available to everyone.",
+    "error": "Animation failed to load. Please try again later."
   },
   "steps": {
     "upload": "Upload",

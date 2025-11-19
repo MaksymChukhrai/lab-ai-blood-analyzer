@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 interface UseAboutResult {
   isMobile: boolean;
@@ -10,6 +11,7 @@ interface UseAboutResult {
 }
 
 export function useAbout(): UseAboutResult {
+  const { t } = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -55,8 +57,8 @@ export function useAbout(): UseAboutResult {
 
               observer.disconnect();
             }
-          } catch (error) {
-            console.error("IntersectionObserver callback error:", error);
+          } catch {
+            throw new Error(t("about.error"));
           }
         },
         { threshold: ANIMATION.INTERSECTION_THRESHOLD },
@@ -65,10 +67,10 @@ export function useAbout(): UseAboutResult {
       observer.observe(element);
 
       return () => observer.disconnect();
-    } catch (error) {
-      console.error("useAbout error:", error);
+    } catch {
+      throw new Error(t("about.error"));
     }
-  }, [isMobile]);
+  }, [isMobile, t]);
 
   return {
     isMobile,
