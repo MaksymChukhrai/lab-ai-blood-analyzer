@@ -11,7 +11,7 @@ export const GradientBox = styled(Box)(({ theme }) => ({
   background: `linear-gradient(317.68deg, rgba(255, 255, 255, 0.09) 44.63%, rgba(105, 151, 237, 0.3) 102.47%)`,
 
   [theme.breakpoints.down("sm")]: {
-    height: "1600px",
+    height: 1600,
   },
 }));
 
@@ -218,6 +218,7 @@ export const TextBox = styled(Box)(({ theme }) => ({
   position: "absolute",
   bottom: "5%",
   width: "90%",
+  maxWidth: "1400px",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
