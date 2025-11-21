@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import {
@@ -15,40 +15,44 @@ export const useResultPage = () => {
   const dispatch = useAppDispatch();
   const analysisResult = useAppSelector(selectAnalysisResult);
 
-  const handleDownloadPDF = useCallback(async () => {
-    try {
-      const html2pdf = (await import("html2pdf.js")).default;
-      const element = document.getElementById("result-content");
+  const [pdfPageHeight, setPdfPageHeight] = useState<number>(842);
 
-      if (!element) return;
+  useEffect(() => {
+    const calculateExactHeight = () => {
+      const originalElement = document.getElementById("result-content");
+      if (!originalElement) return;
 
-      const contentWidthPx = element.scrollWidth;
-      const contentHeightPx = element.scrollHeight;
+      const clone = originalElement.cloneNode(true) as HTMLElement;
 
-      const pxToMm = 25.4 / 96;
-      const widthMm = contentWidthPx * pxToMm;
-      const heightMm = contentHeightPx * pxToMm;
-      const finalHeightMm = heightMm + 1;
+      clone.style.width = "1980px";
+      clone.style.position = "absolute";
+      clone.style.top = "-9999px";
+      clone.style.left = "-9999px";
+      clone.style.visibility = "hidden";
+      clone.style.height = "auto";
+      clone.style.maxHeight = "none";
+      clone.style.overflow = "visible";
 
-      const opt = {
-        margin: 0,
-        filename: `blood-test-analysis-${new Date().getTime()}.pdf`,
-        image: { type: "jpeg" as const, quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
+      document.body.appendChild(clone);
 
-        jsPDF: {
-          unit: "mm",
-          format: [widthMm, finalHeightMm] as [number, number],
-          orientation: "portrait" as const,
-        },
-        pagebreak: { mode: "avoid-all" },
-      };
+      const contentHeightPx = clone.scrollHeight;
 
-      await html2pdf().set(opt).from(element).save();
-    } catch (error) {
-      console.error("Failed to generate PDF:", error);
-    }
-  }, []);
+      document.body.removeChild(clone);
+
+      const calculatedPoints = contentHeightPx * 0.57;
+
+      setPdfPageHeight(Math.max(842, calculatedPoints));
+    };
+
+    const timer = setTimeout(calculateExactHeight, 500);
+
+    window.addEventListener("resize", calculateExactHeight);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", calculateExactHeight);
+    };
+  }, [analysisResult]);
 
   const handlePrintReport = () => {
     window.print();
@@ -68,9 +72,9 @@ export const useResultPage = () => {
 
   return {
     analysisResult,
-    handleDownloadPDF,
     handlePrintReport,
     handleStartNewAnalysis,
     handleBack,
+    pdfPageHeight,
   };
 };

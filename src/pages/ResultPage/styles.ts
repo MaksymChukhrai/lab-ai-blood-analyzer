@@ -26,7 +26,6 @@ export const Title = styled(Typography)(({ theme }) => ({
   fontFamily: theme.fontFamily.DM_SANS,
   fontWeight: theme.fontWeight.BOLD,
   fontSize: theme.fontSizes.fontSize32,
-  lineHeight: theme.lineHeights.lineHeight70,
   color: theme.colors.PRIMARY_DARK,
 }));
 
@@ -34,7 +33,6 @@ export const Subtitle = styled(Typography)(({ theme }) => ({
   fontFamily: theme.fontFamily.POPPINS,
   fontWeight: theme.fontWeight.LIGHT,
   fontSize: theme.fontSizes.fontSize20,
-  lineHeight: theme.lineHeights.lineHeight35,
   color: theme.colors.PRIMARY_DARK,
   marginBottom: "30px",
 }));
@@ -124,7 +122,6 @@ export const StatusText = styled(Box)(({ theme }) => ({
   fontFamily: theme.fontFamily.POPPINS,
   fontWeight: theme.fontWeight.REGULAR,
   fontSize: theme.fontSizes.fontSize20,
-  lineHeight: theme.lineHeights.lineHeight35,
   color: theme.colors.PRIMARY_DARK,
 }));
 
@@ -150,7 +147,6 @@ export const TableCell = styled(Box)(({ theme }) => ({
   fontFamily: theme.fontFamily.POPPINS,
   fontSize: theme.fontSizes.fontSize18,
   fontWeight: theme.fontWeight.REGULAR,
-  lineHeight: theme.lineHeights.lineHeight35,
   color: theme.colors.PRIMARY_DARK,
   display: "flex",
   alignItems: "center",
@@ -193,7 +189,6 @@ export const SectionTitle = styled(Typography, {
   fontFamily: theme.fontFamily.DM_SANS,
   fontWeight: theme.fontWeight.BOLD,
   fontSize: theme.fontSizes.fontSize22,
-  lineHeight: theme.lineHeights.lineHeight25,
   color: theme.colors.SECONDARY_GREEN,
   marginBottom: "10px",
 
@@ -212,7 +207,6 @@ export const SectionSubtitle = styled(Typography)(({ theme }) => ({
   fontFamily: theme.fontFamily.POPPINS,
   fontWeight: theme.fontWeight.REGULAR,
   fontSize: theme.fontSizes.fontSize18,
-  lineHeight: theme.lineHeights.lineHeight24,
   color: theme.colors.SECONDARY_GREEN,
   marginBottom: "10px",
   textDecoration: "underline",
@@ -230,7 +224,6 @@ export const RecommendationText = styled(Typography)(({ theme }) => ({
   fontFamily: theme.fontFamily.POPPINS,
   fontWeight: theme.fontWeight.MEDIUM,
   fontSize: theme.fontSizes.fontSize18,
-  lineHeight: theme.lineHeights.lineHeight30,
   color: theme.colors.SECONDARY_GREEN,
   marginBottom: "15px",
 }));
@@ -259,7 +252,6 @@ export const CardTitle = styled(Typography)(({ theme }) => ({
   fontFamily: theme.fontFamily.POPPINS,
   fontWeight: theme.fontWeight.SEMIBOLD,
   fontSize: theme.fontSizes.fontSize20,
-  lineHeight: theme.lineHeights.lineHeight24,
   color: theme.colors.PRIMARY_DARK,
 }));
 
@@ -267,7 +259,6 @@ export const CardContent = styled(Typography)(({ theme }) => ({
   fontFamily: theme.fontFamily.POPPINS,
   fontWeight: theme.fontWeight.REGULAR,
   fontSize: theme.fontSizes.fontSize20,
-  lineHeight: theme.lineHeights.lineHeight24,
   color: theme.colors.PRIMARY_DARK,
 }));
 
@@ -275,7 +266,6 @@ export const AssessmentText = styled(Typography)(({ theme }) => ({
   fontFamily: theme.fontFamily.POPPINS,
   fontWeight: theme.fontWeight.MEDIUM,
   fontSize: theme.fontSizes.fontSize18,
-  lineHeight: theme.lineHeights.lineHeight24,
   color: theme.colors.SECONDARY_ORANGE,
 }));
 

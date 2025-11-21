@@ -13,7 +13,8 @@
       "pages/*": ["src/pages/*"],
       "constants/*": ["src/constants/*"],
       "hooks/*": ["src/hooks/*"],
-      "store/*": ["src/store/*"]
+      "store/*": ["src/store/*"],
+      "theme/*": ["src/theme/*"]
     },
     "strict": true,
     "forceConsistentCasingInFileNames": true

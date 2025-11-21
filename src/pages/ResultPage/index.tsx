@@ -1,4 +1,5 @@
 import { CircularProgress } from "@mui/material";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import { Trans, useTranslation } from "react-i18next";
 import { AnalysLayout } from "components/AnalysLayout";
 import { useResultPage } from "hooks/useResultPage";
@@ -6,6 +7,7 @@ import { STEPS } from "constants/steps";
 import errorIcon from "locals/error2.svg";
 import checkIcon from "locals/check3.svg";
 import arrow from "locals/arrow.svg";
+import { AnalysisPdfDocument } from "./ResultPagePDF";
 import {
   PageContainer,
   Header,
@@ -41,10 +43,10 @@ import {
 export const ResultPage = () => {
   const {
     analysisResult,
-    handleDownloadPDF,
     handlePrintReport,
     handleStartNewAnalysis,
     handleBack,
+    pdfPageHeight,
   } = useResultPage();
 
   const { t } = useTranslation();
@@ -152,7 +154,7 @@ export const ResultPage = () => {
           </AssessmentText>
 
           <AssessmentText>
-            <Trans i18nKey="result.overallHealthTitle" />
+            <Trans i18nKey="result.summaryTitle" />
             {analysisResult.finalAssessment.recommendationSummary}
           </AssessmentText>
         </SectionBox>
@@ -170,13 +172,27 @@ export const ResultPage = () => {
             <ActionButton onClick={handlePrintReport} $variant="print">
               {t("result.printResult")}
             </ActionButton>
-            <ActionButton
-              onClick={handleDownloadPDF}
-              $variant="download"
-              disableRipple
+            <PDFDownloadLink
+              document={
+                <AnalysisPdfDocument
+                  data={analysisResult}
+                  t={t}
+                  pageHeight={pdfPageHeight}
+                />
+              }
+              fileName={"blood-test-analysis.pdf"}
+              style={{ textDecoration: "none" }}
             >
-              {t("result.downloadPDF")}
-            </ActionButton>
+              {({ loading }) => (
+                <ActionButton
+                  $variant="download"
+                  disableRipple
+                  disabled={loading}
+                >
+                  {loading ? "Generating..." : t("result.downloadPDF")}
+                </ActionButton>
+              )}
+            </PDFDownloadLink>
             <ActionButton onClick={handleStartNewAnalysis} $variant="startNew">
               {t("result.startNew")}
             </ActionButton>
