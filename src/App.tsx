@@ -14,6 +14,7 @@ import { ErrorPageTemplate } from "components/ErrorPageTemplate";
 import { PrivateRoute } from "components/PrivateRoute";
 import { PATHS } from "constants/navigation";
 import { theme } from "./theme/theme";
+import { ResultPage } from "./pages/ResultPage";
 
 function App() {
   const { t } = useTranslation();
@@ -58,6 +59,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <ReviewPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={PATHS.RESULT}
+              element={
+                <PrivateRoute>
+                  <ResultPage />
                 </PrivateRoute>
               }
             />

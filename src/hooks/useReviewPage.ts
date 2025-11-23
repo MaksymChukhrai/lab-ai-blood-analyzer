@@ -8,6 +8,11 @@ import {
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { selectSelectedOptions } from "store/slices/optionSlice";
 import {
+  selectAnalysisResult,
+  selectGeneratedWith,
+  setAnalysisResult,
+} from "store/slices/analysisResultSlice";
+import {
   setBloodMarkersData,
   updateMarkerName,
   updateMarkerValue,
@@ -35,6 +40,8 @@ export const useReviewPage = () => {
   const gender = useAppSelector(selectGender);
   const comment = useAppSelector(selectComment);
   const selectedOptions = useAppSelector(selectSelectedOptions);
+  const analysisResult = useAppSelector(selectAnalysisResult);
+  const generatedWith = useAppSelector(selectGeneratedWith);
 
   const [birthDate, setBirthDate] = useState<string>("");
 
@@ -99,23 +106,42 @@ export const useReviewPage = () => {
   };
 
   const handleGenerateAnalysis = async (): Promise<void> => {
-    try {
-      const analysisData = {
-        age,
-        gender,
-        markers: markers
-          .filter((marker) => marker.name && marker.value)
-          .map((marker) => ({
-            name: marker.name,
-            value: marker.value,
-            unit: marker.unit,
-          })),
-        comment,
-        selectedOptions,
-      };
+    const analysisData = {
+      age,
+      gender,
+      markers: markers
+        .filter((marker) => marker.name && marker.value)
+        .map((marker) => ({
+          name: marker.name,
+          value: marker.value,
+          unit: marker.unit,
+        })),
+      comment,
+      selectedOptions,
+    };
 
-      await generateAnalysis(analysisData).unwrap();
-      navigate(STEP_PATHS.review);
+    if (analysisResult && generatedWith) {
+      const currentInputString = JSON.stringify(analysisData);
+      const savedInputString = JSON.stringify(generatedWith);
+
+      if (currentInputString === savedInputString) {
+        navigate(STEP_PATHS.result);
+
+        return;
+      }
+    }
+
+    try {
+      const response = await generateAnalysis(analysisData).unwrap();
+
+      dispatch(
+        setAnalysisResult({
+          response: response,
+          input: analysisData,
+        }),
+      );
+
+      navigate(STEP_PATHS.result);
     } catch (error) {
       console.error("Failed to generate analysis:", error);
     }
