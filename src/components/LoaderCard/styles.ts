@@ -176,15 +176,12 @@ export const ButtonsBox = styled(Box)({
   margin: "0px 0px 30px 0px",
 });
 
-export const ContinueButton = styled(Button)({
+export const ContinueButton = styled(Button)(({ theme }) => ({
   width: "240px",
   height: "44px",
-});
 
-export const ContinueButtonMobile = styled(ContinueButton)(({ theme }) => ({
-  display: "none",
   [theme.breakpoints.down("sm")]: {
-    display: "block",
+    marginBottom: "40px",
   },
 }));
 
