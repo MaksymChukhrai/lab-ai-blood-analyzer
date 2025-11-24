@@ -30,18 +30,22 @@ export const Footer = ({ variant = "full" }: FooterProps) => {
   const handleCloseModal = (): void => {
     setIsModalOpen(false);
   };
+
   return (
     <FooterWrapper $variant={variant}>
       <GridWrapper container spacing={5} $variant={variant}>
-        <Grid size={6}>
-          <Logo light />
+        <Grid size={{ xs: 12, md: 6 }}>
+          <Logo light variant="footer" />
           <Description $variant={variant}>
             {t("footer.description")}
           </Description>
         </Grid>
 
         {variant === "full" && (
-          <Grid size={3}>
+          <Grid
+            size={{ xs: 12, md: 3 }}
+            sx={{ display: { xs: "none", md: "block" } }}
+          >
             <LinkTitle>{t("footer.companyTitle")}</LinkTitle>
             <Box component="nav">
               {COMPANY_LINKS.map((link) => (
@@ -58,7 +62,7 @@ export const Footer = ({ variant = "full" }: FooterProps) => {
             </Box>
           </Grid>
         )}
-        <Grid size={variant === "full" ? 3 : 4}>
+        <Grid size={{ xs: 12, md: variant === "full" ? 3 : 4 }}>
           {variant === "full" && (
             <LinkTitle>{t("footer.supportTitle")}</LinkTitle>
           )}
@@ -78,7 +82,7 @@ export const Footer = ({ variant = "full" }: FooterProps) => {
       {variant === "full" && (
         <>
           <FooterDivider />
-          <Caption variant="caption">{t("footer.copyright")}</Caption>
+          <Caption>{t("footer.copyright")}</Caption>
         </>
       )}
     </FooterWrapper>

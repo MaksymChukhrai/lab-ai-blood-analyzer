@@ -1,21 +1,33 @@
 import { alpha, styled } from "@mui/material/styles";
 import { Typography, Box } from "@mui/material";
 
-export const LogoContainer = styled(Box)(() => ({
-  display: "flex",
-  alignItems: "center",
-  gap: 15,
-  width: "fitContent",
+export const LogoContainer = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "$variant",
+})<{ $variant?: "default" | "hero" | "page" | "footer" }>(
+  ({ theme, $variant }) => ({
+    display: "flex",
+    alignItems: "center",
+    gap: 15,
+    width: "fit-content",
 
-  "@media (max-width: 426px)": {
-    gap: 20,
-    marginBottom: "31px !important",
-  },
-}));
+    "@media (max-width: 426px)": {
+      gap: 20,
+      marginBottom: "31px",
+    },
+
+    [theme.breakpoints.down("md")]: {
+      ...($variant === "footer" && {
+        margin: "0 auto 10px",
+        justifyContent: "center",
+        gap: "15px",
+      }),
+    },
+  }),
+);
 
 export const LogoImage = styled("img", {
   shouldForwardProp: (prop) => prop !== "$variant",
-})<{ $variant?: "default" | "hero" | "page" }>(({ theme, $variant }) => ({
+})<{ $variant?: "default" | "hero" | "page" | "footer" }>(({ $variant }) => ({
   width: 40,
   height: 40,
   objectFit: "cover",
@@ -36,9 +48,6 @@ export const LogoImage = styled("img", {
     width: 33,
     height: 33,
     borderRadius: 5,
-    boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
-    backgroundColor: theme.colors.PRIMARY_DARK,
-    padding: "1px 4px 1px 4px",
 
     ...($variant === "hero" && {
       width: 33,
@@ -55,7 +64,7 @@ export const LogoImage = styled("img", {
 
 export const LogoText = styled(Typography, {
   shouldForwardProp: (prop) => prop !== "$light" && prop !== "$variant",
-})<{ $light?: boolean; $variant?: "default" | "hero" | "page" }>(
+})<{ $light?: boolean; $variant?: "default" | "hero" | "page" | "footer" }>(
   ({ theme, $light, $variant }) => ({
     fontFamily: theme.fontFamily.DM_SANS,
     fontWeight: theme.fontWeight.BOLD,
@@ -92,6 +101,12 @@ export const LogoText = styled(Typography, {
         lineHeight: 1.31,
         paddingBottom: 0,
         filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
+      }),
+
+      ...($variant === "footer" && {
+        fontSize: theme.fontSizes.fontSize20,
+        paddingBottom: 0,
+        textShadow: `0 4px 4px ${alpha(theme.colors.SHADOW_BLACK, 0.25)}`,
       }),
     },
   }),

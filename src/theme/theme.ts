@@ -60,6 +60,7 @@ const FONT_SIZES = {
   fontSize50: "50px",
   fontSize55: "55px",
   fontSize64: "64px",
+  fontSize150: "150px",
   fontSize400: "400px",
 };
 

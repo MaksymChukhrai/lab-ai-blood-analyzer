@@ -16,6 +16,10 @@ export const ErrorCode = styled(Typography)(({ theme }) => ({
   fontFamily: theme.fontFamily.DM_SANS,
   color: theme.colors.PRIMARY_DARK,
   lineHeight: "100%",
+
+  [theme.breakpoints.down("md")]: {
+    fontSize: theme.fontSizes.fontSize150,
+  },
 }));
 
 export const ErrorMessage = styled(Typography)(({ theme }) => ({
@@ -25,11 +29,21 @@ export const ErrorMessage = styled(Typography)(({ theme }) => ({
   color: theme.colors.PRIMARY_DARK,
   marginBottom: "25px",
   textAlign: "center",
+
+  [theme.breakpoints.down("md")]: {
+    fontSize: theme.fontSizes.fontSize16,
+    marginBottom: "50px",
+  },
 }));
 
 export const HomeButton = styled(Button)({
   padding: "12px 40px",
   fontSize: theme.fontSizes.fontSize18,
+  fontWeight: theme.fontWeight.REGULAR,
+
+  [theme.breakpoints.down("md")]: {
+    fontSize: theme.fontSizes.fontSize16,
+  },
 });
 
 export const MainContent = styled(Box)({
@@ -38,4 +52,8 @@ export const MainContent = styled(Box)({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
+
+  [theme.breakpoints.down("md")]: {
+    padding: "0 30px",
+  },
 });
