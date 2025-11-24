@@ -12,35 +12,53 @@ export const LoaderBox = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "space-between",
+
+  [theme.breakpoints.down("sm")]: {
+    width: "90%",
+    height: "555px",
+  },
 }));
 
-export const TextBox = styled(Box)({
+export const TextBox = styled(Box)(({ theme }) => ({
   width: "556px",
   height: "110px",
-  marginTop: "60px",
+  marginTop: "70px",
+  gap: "30px",
   display: "flex",
   flexDirection: "column",
   alignItems: "space-between",
-});
+
+  [theme.breakpoints.down("sm")]: {
+    width: "75%",
+    marginTop: "30px",
+    gap: "10px",
+  },
+}));
 
 export const Title = styled(Typography)(({ theme }) => ({
   fontFamily: theme.fontFamily.DM_SANS,
   fontWeight: theme.fontWeight.BOLD,
   fontSize: theme.fontSizes.fontSize32,
-  lineHeight: theme.lineHeights.lineHeight70,
   letterSpacing: "0%",
   textAlign: "center",
   color: theme.colors.PRIMARY_DARK,
+
+  [theme.breakpoints.down("sm")]: {
+    fontSize: theme.fontSizes.fontSize20,
+  },
 }));
 
 export const Subtitle = styled(Typography)(({ theme }) => ({
   fontFamily: theme.fontFamily.POPPINS,
   fontWeight: theme.fontWeight.LIGHT,
   fontSize: theme.fontSizes.fontSize20,
-  lineHeight: theme.lineHeights.lineHeight35,
   letterSpacing: "0%",
   textAlign: "center",
   color: theme.colors.PRIMARY_DARK,
+
+  [theme.breakpoints.down("sm")]: {
+    fontSize: theme.fontSizes.fontSize15,
+  },
 }));
 
 export const CircleWrapper = styled(Box)({
@@ -51,21 +69,23 @@ export const CircleWrapper = styled(Box)({
   flexGrow: 1,
 });
 
-export const PercentageText = styled("div")<{
-  done: boolean;
+export const PercentageText = styled("div", {
+  shouldForwardProp: (prop) => prop !== "$done" && prop !== "$animateSuccess",
+})<{
+  $done: boolean;
 
-  animateSuccess: boolean;
-}>(({ done, animateSuccess, theme }) => ({
+  $animateSuccess: boolean;
+}>(({ $done, $animateSuccess, theme }) => ({
   fontFamily: theme.fontFamily.POPPINS,
   fontWeight: theme.fontWeight.LIGHT,
-  fontSize: animateSuccess
+  fontSize: $animateSuccess
     ? theme.fontSizes.fontSize24
     : theme.fontSizes.fontSize36,
 
   lineHeight: theme.lineHeights.lineHeight35,
   textAlign: "center",
   verticalAlign: "middle",
-  color: done
+  color: $done
     ? alpha(theme.colors.SECONDARY_GREEN, 0.7)
     : theme.colors.PRIMARY_DARK,
 
@@ -79,12 +99,14 @@ const rotate = keyframes`
   to { transform: rotate(360deg); }
 `;
 
-export const Circle = styled("div")<{
+export const Circle = styled("div", {
+  shouldForwardProp: (prop) => prop !== "$done" && prop !== "$animateSuccess",
+})<{
   progress: number;
-  done: boolean;
-  animateSuccess: boolean;
-}>(({ done, animateSuccess, theme }) => {
-  const showGap = !done;
+  $done: boolean;
+  $animateSuccess: boolean;
+}>(({ $done, $animateSuccess, theme }) => {
+  const showGap = !$done;
 
   return {
     position: "relative",
@@ -97,9 +119,9 @@ export const Circle = styled("div")<{
     overflow: "visible",
     transition: "all 0.4s ease",
 
-    background: animateSuccess
+    background: $animateSuccess
       ? theme.colors.SECONDARY_GREEN
-      : done
+      : $done
         ? "transparent"
         : `conic-gradient(
           ${theme.colors.PRIMARY_DARK} 0deg,
@@ -110,28 +132,35 @@ export const Circle = styled("div")<{
 
     animation: showGap ? `${rotate} 1s linear infinite` : "none",
 
-    ...(done && !animateSuccess
+    ...($done && !$animateSuccess
       ? {
           border: `10px solid ${theme.colors.SECONDARY_GREEN}`,
         }
       : {}),
 
-    ...(done || animateSuccess
+    ...($done || $animateSuccess
       ? {}
       : {
           mask: "radial-gradient(farthest-side, transparent calc(100% - 10px), black 0)",
           WebkitMask:
             "radial-gradient(farthest-side, transparent calc(100% - 10px), black 0)",
         }),
+
+    [theme.breakpoints.down("sm")]: {
+      width: "55px",
+      height: "55px",
+    },
   };
 });
 
-export const StyledCheckIcon = styled(CheckIcon)<{
-  animateSuccess: boolean;
-}>(({ animateSuccess, theme }) => ({
+export const StyledCheckIcon = styled(CheckIcon, {
+  shouldForwardProp: (prop) => prop !== "$animateSuccess",
+})<{
+  $animateSuccess: boolean;
+}>(({ $animateSuccess, theme }) => ({
   fontSize: theme.fontSizes.fontSize40,
 
-  color: animateSuccess
+  color: $animateSuccess
     ? `${theme.colors.WHITE}`
     : `${theme.colors.SECONDARY_GREEN}`,
 
@@ -151,3 +180,20 @@ export const ContinueButton = styled(Button)({
   width: "240px",
   height: "44px",
 });
+
+export const ContinueButtonMobile = styled(ContinueButton)(({ theme }) => ({
+  display: "none",
+  [theme.breakpoints.down("sm")]: {
+    display: "block",
+  },
+}));
+
+export const BackImg = styled("img")(({ theme }) => ({
+  width: "38px",
+  height: "38px",
+
+  [theme.breakpoints.down("sm")]: {
+    width: "24px",
+    height: "24px",
+  },
+}));

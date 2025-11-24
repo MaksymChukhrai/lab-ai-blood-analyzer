@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { IconButton } from "@mui/material";
+import { IconButton, useMediaQuery, useTheme } from "@mui/material";
 import {
   ANIMATION_DELAY_MS,
   DONE_DELAY_MS,
@@ -20,6 +20,7 @@ import {
   Circle,
   PercentageText,
   StyledCheckIcon,
+  BackImg,
 } from "./styles";
 
 function LoaderCard() {
@@ -28,6 +29,8 @@ function LoaderCard() {
   const [progress, setProgress] = useState(0);
   const [done, setDone] = useState(false);
   const [animateSuccess, setAnimateSuccess] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
     if (progress < 100) {
@@ -59,10 +62,14 @@ function LoaderCard() {
       </TextBox>
 
       <CircleWrapper>
-        <Circle progress={progress} done={done} animateSuccess={animateSuccess}>
-          {done && <StyledCheckIcon animateSuccess={animateSuccess} />}
+        <Circle
+          progress={progress}
+          $done={done}
+          $animateSuccess={animateSuccess}
+        >
+          {done && <StyledCheckIcon $animateSuccess={animateSuccess} />}
         </Circle>
-        <PercentageText done={done} animateSuccess={animateSuccess}>
+        <PercentageText $done={done} $animateSuccess={animateSuccess}>
           {done
             ? animateSuccess
               ? t("loader.done")
@@ -70,11 +77,7 @@ function LoaderCard() {
             : `${progress}%`}
         </PercentageText>
       </CircleWrapper>
-
-      <ButtonsBox>
-        <IconButton onClick={handleBack}>
-          <img src={arrow} alt="arrow" />
-        </IconButton>
+      {isMobile && (
         <ContinueButton
           variant="contained"
           disabled={!animateSuccess}
@@ -82,6 +85,21 @@ function LoaderCard() {
         >
           {t("loader.continue1")}
         </ContinueButton>
+      )}
+
+      <ButtonsBox>
+        <IconButton onClick={handleBack}>
+          <BackImg src={arrow} alt="arrow" />
+        </IconButton>
+        {!isMobile && (
+          <ContinueButton
+            variant="contained"
+            disabled={!animateSuccess}
+            onClick={handleContinueSelf}
+          >
+            {t("loader.continue1")}
+          </ContinueButton>
+        )}
       </ButtonsBox>
     </LoaderBox>
   );
