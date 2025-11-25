@@ -267,6 +267,7 @@
   },
   "options": {
     "title": "What would you like to add to your blood test result interpretation?",
+    "mobileTitle": "What would you like to add to your results?",
     "subtitle": "Select the types of recommendations you would like to receive with your analysis",
     "supplement": {
       "title": "Supplement Recommendations",

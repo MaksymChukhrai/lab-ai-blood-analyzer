@@ -18,6 +18,8 @@ import {
   OptionSubtitle,
   ContinueButton,
   OptionIcon,
+  FormTitleMobile,
+  OptionIconBox,
 } from "./styles";
 
 export const OptionsPage = () => {
@@ -29,6 +31,7 @@ export const OptionsPage = () => {
     <AnalysLayout currentStep={STEPS[1]}>
       <ContentContainer>
         <FormTitle>{t("options.title")}</FormTitle>
+        <FormTitleMobile>{t("options.mobileTitle")}</FormTitleMobile>
         <FormSubtitle>{t("options.subtitle")}</FormSubtitle>
 
         <OptionsGrid>
@@ -38,9 +41,9 @@ export const OptionsPage = () => {
               isSelected={selectedOptions.includes(option.id)}
               onClick={() => handleToggleOption(option.id)}
             >
-              <OptionIcon isSelected={selectedOptions.includes(option.id)}>
-                <img src={option.icon} alt={t(option.titleKey)} />
-              </OptionIcon>
+              <OptionIconBox isSelected={selectedOptions.includes(option.id)}>
+                <OptionIcon src={option.icon} alt={t(option.titleKey)} />
+              </OptionIconBox>
               <CardContent>
                 <OptionTitle>{t(option.titleKey)}</OptionTitle>
                 <OptionSubtitle>{t(option.descKey)}</OptionSubtitle>
