@@ -43,9 +43,9 @@ export const LogoImage = styled("img", {
     filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
   }),
 
-  "@media (max-width: 426px)": {
-    width: 33,
-    height: 33,
+  "@media (max-width: 600px)": {
+    width: 27,
+    height: 27,
     borderRadius: 5,
 
     ...($variant === "hero" && {
@@ -84,8 +84,8 @@ export const LogoText = styled(Typography, {
       filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
     }),
 
-    "@media (max-width: 426px)": {
-      fontSize: theme.fontSizes.fontSize36,
+    "@media (max-width: 600px)": {
+      fontSize: theme.fontSizes.fontSize20,
       fontWeight: theme.fontWeight.BOLD,
       lineHeight: 1.31,
 
