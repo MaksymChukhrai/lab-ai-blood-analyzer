@@ -10,6 +10,10 @@ export const GradientBox = styled(Box)(({ theme }) => ({
   justifyContent: "center",
   paddingTop: "54px",
   paddingBottom: "79px",
+
+  [theme.breakpoints.down("md")]: {
+    padding: "58px 20px 79px",
+  },
 }));
 
 export const HeadingContainer = styled(Box)({

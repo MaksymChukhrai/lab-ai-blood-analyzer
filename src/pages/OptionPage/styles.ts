@@ -15,6 +15,10 @@ export const ContentContainer = styled(Box)(({ theme }) => ({
   marginBottom: "20px",
   backgroundColor: theme.colors.WHITE,
   boxShadow: `0px 4px 4px 0px ${alpha(theme.colors.PRIMARY_DARK, 0.25)}`,
+
+  [theme.breakpoints.down("md")]: {
+    padding: "33px 20px",
+  },
 }));
 
 export const FormTitle = styled(Typography)(({ theme }) => ({
@@ -24,6 +28,25 @@ export const FormTitle = styled(Typography)(({ theme }) => ({
   fontSize: theme.fontSizes.fontSize32,
   color: theme.colors.PRIMARY_DARK,
   textAlign: "center",
+  display: "block",
+
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
+}));
+
+export const FormTitleMobile = styled(Typography)(({ theme }) => ({
+  display: "none",
+  [theme.breakpoints.down("md")]: {
+    display: "block",
+    fontFamily: theme.fontFamily.DM_SANS,
+    fontWeight: theme.fontWeight.BOLD,
+    fontSize: theme.fontSizes.fontSize20,
+    color: theme.colors.PRIMARY_DARK,
+    textAlign: "center",
+    maxWidth: "250px",
+    margin: "0 auto 10px",
+  },
 }));
 
 export const FormSubtitle = styled(Typography)(({ theme }) => ({
@@ -33,15 +56,24 @@ export const FormSubtitle = styled(Typography)(({ theme }) => ({
   lineHeight: theme.lineHeights.lineHeight35,
   textAlign: "center",
   color: theme.colors.PRIMARY_DARK,
+
+  [theme.breakpoints.down("md")]: {
+    fontSize: theme.fontSizes.fontSize15,
+    lineHeight: "normal",
+  },
 }));
 
-export const OptionsGrid = styled(Box)({
+export const OptionsGrid = styled(Box)(({ theme }) => ({
   display: "grid",
   gridTemplateColumns: "repeat(2, 1fr)",
   gap: "31px",
   margin: "32px auto 0",
   maxWidth: "1070px",
-});
+
+  [theme.breakpoints.down("md")]: {
+    gridTemplateColumns: "repeat(1, 1fr)",
+  },
+}));
 
 interface OptionCardProps {
   isSelected: boolean;
@@ -63,6 +95,15 @@ export const OptionCard = styled(Box, {
   "&:hover": {
     boxShadow: `1px 8px 10px 0px ${alpha(theme.colors.PRIMARY_DARK, 0.7)}`,
   },
+
+  [theme.breakpoints.down("md")]: {
+    borderRadius: "20px",
+    padding: "16px",
+    gap: "20px",
+    "&:hover": {
+      boxShadow: "none",
+    },
+  },
 }));
 
 export const CardContent = styled(Box)({
@@ -79,6 +120,12 @@ export const OptionTitle = styled(Typography)(({ theme }) => ({
   lineHeight: theme.lineHeights.lineHeight100,
   textShadow: `0px 2px 4px ${alpha(theme.palette.primary.dark, 0.25)}`,
   color: theme.colors.PRIMARY_DARK,
+
+  [theme.breakpoints.down("md")]: {
+    fontSize: theme.fontSizes.fontSize15,
+    fontWeight: theme.fontWeight.SEMIBOLD,
+    lineHeight: "normal",
+  },
 }));
 
 export const OptionSubtitle = styled(Typography)(({ theme }) => ({
@@ -88,9 +135,14 @@ export const OptionSubtitle = styled(Typography)(({ theme }) => ({
   color: theme.colors.PRIMARY_DARK,
   textAlign: "start",
   lineHeight: theme.lineHeights.lineHeight25,
+
+  [theme.breakpoints.down("md")]: {
+    fontSize: theme.fontSizes.fontSize14,
+    lineHeight: "normal",
+  },
 }));
 
-export const OptionIcon = styled(Box, {
+export const OptionIconBox = styled(Box, {
   shouldForwardProp: (prop: PropertyKey) => prop !== "isSelected",
 })<OptionCardProps>(({ theme, isSelected }) => ({
   width: "51px",
@@ -103,6 +155,19 @@ export const OptionIcon = styled(Box, {
   backgroundColor: isSelected
     ? alpha(theme.colors.SECONDARY_GREEN, 0.45)
     : alpha(theme.colors.PRIMARY_LIGHT, 0.5),
+
+  [theme.breakpoints.down("md")]: {
+    width: "34px",
+    height: "34px",
+    padding: "17px",
+  },
+}));
+
+export const OptionIcon = styled("img")(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    width: "18px",
+    height: "20px",
+  },
 }));
 
 export const FooterActions = styled(Box)({
@@ -117,6 +182,10 @@ export const BackButton = styled(IconButton)(({ theme }) => ({
   transition: "all 0.3s ease-in-out",
 }));
 
-export const ContinueButton = styled(Button)({
+export const ContinueButton = styled(Button)(({ theme }) => ({
   padding: "10px 30px",
-});
+
+  [theme.breakpoints.down("md")]: {
+    padding: "10px 20px",
+  },
+}));
