@@ -1,10 +1,12 @@
 import { useTranslation } from "react-i18next";
 import CountUp from "react-countup";
 import { Logo } from "@/components/Logo";
+import { LogoutButton } from "@/components/LogoutButton";
 import UploadCard from "@/components/UploadCard";
 import { COMPANY_LINKS } from "@/constants/navigation";
 import { stats } from "@/constants/heading";
 import { useSignInForm } from "@/hooks/useSignInForm";
+import { useAuth } from "@/hooks/useAuth";
 import CheckIcon from "locals/check.svg";
 import heart from "locals/heart.svg";
 import {
@@ -36,6 +38,7 @@ import {
 function Heading() {
   const { t } = useTranslation();
   const { handleButtonSignIn } = useSignInForm();
+  const { isAuthenticated } = useAuth();
 
   return (
     <>
@@ -53,13 +56,18 @@ function Heading() {
                 {t(link.key)}
               </NavLink>
             ))}
-            <GetStartedButton
-              variant="contained"
-              color="primary"
-              onClick={handleButtonSignIn}
-            >
-              {t("navLanding.button")}
-            </GetStartedButton>
+            
+            {isAuthenticated ? (
+              <LogoutButton />
+            ) : (
+              <GetStartedButton
+                variant="contained"
+                color="primary"
+                onClick={handleButtonSignIn}
+              >
+                {t("navLanding.button")}
+              </GetStartedButton>
+            )}
           </NavBox>
         </StyledToolbar>
       </StyledAppBar>

@@ -30,7 +30,7 @@ npm run build
 npm run preview
 ```
 
-🐳 Docker Development (Recommended)
+### 🐳 Docker Development (Recommended)
 
 1. Create Docker network:
 
@@ -55,6 +55,26 @@ docker-compose up --build
 App will be available at: http://localhost:8080
 
 📚 **Full Docker documentation:** docs/DOCKER.md
+
+## 🧪 Testing
+
+### Logout Feature Tests
+
+```bash
+# Authentication state tests (2 tests)
+npm test -- useAuth.test.ts
+
+# Modal component tests (7 tests)
+npm test -- LogoutModal.test.tsx
+
+# Button component tests (5 tests)
+npm test -- LogoutButton.test.tsx
+
+# Run all logout tests (12 tests)
+npm test -- Logout
+```
+
+Coverage: 14 tests - authentication hooks, modal interactions, logout flow
 
 **Code Quality**
 

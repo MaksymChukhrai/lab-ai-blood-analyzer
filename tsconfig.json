@@ -18,6 +18,7 @@
       "theme/*": ["src/theme/*"]
     },
     "strict": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "types": ["vite/client", "jest", "@testing-library/jest-dom"]
   }
 }

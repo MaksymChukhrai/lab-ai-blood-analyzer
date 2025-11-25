@@ -17,6 +17,7 @@ export const PATHS = {
   TERMS: "/terms",
   PRIVACY: "/privacy",
   LOADER: "/loader",
+  LANDING: "/",
 };
 
 export const COMPANY_LINKS: NavLink[] = [

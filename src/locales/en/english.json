@@ -61,6 +61,16 @@
     "about": "About Us",
     "button": "Get Started"
   },
+
+  "logout": {
+    "button": "Logout",
+    "modal": {
+      "title": "Are you sure you want to exit all current sessions?",
+      "yes": "Yes",
+      "no": "No"
+    }
+  },
+
   "bg": {
     "heading": "Understand Your Blood Tests with AI",
     "text": "Get personalized health insights, supplement recommendations, and actionable advice from your blood test results in minutes, not days.",

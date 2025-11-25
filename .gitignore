@@ -26,3 +26,13 @@ dist-ssr
 
 .env
 .vercel
+
+# Test coverage
+coverage/
+*.lcov
+
+# Docker (если не часть проекта)
+# docker/
+
+# Build outputs
+dist/

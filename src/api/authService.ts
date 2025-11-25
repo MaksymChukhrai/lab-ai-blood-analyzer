@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
 import { COOKIE_EXPIRY } from "@/constants/auth";
+import { ENV } from "@/config/env";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+const API_BASE_URL = ENV.API_BASE_URL;
 
 export const authService = {
   getGoogleAuthUrl: (): string => {
@@ -57,4 +57,33 @@ export const authService = {
   isAuthenticated: (): boolean => {
     return !!authService.getAccessTokenFromCookie();
   },
+};
+
+export const logout = async (): Promise<void> => {
+  try {
+    const accessToken = authService.getAccessTokenFromCookie();
+
+    if (accessToken) {
+      const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(
+          `Backend logout failed: ${response.status} ${response.statusText} - ${errorText}`,
+        );
+      }
+    }
+  } catch (error) {
+    console.error("Logout error:", error);
+  } finally {
+    Cookies.remove("accessToken");
+    Cookies.remove("refreshToken");
+  }
 };
