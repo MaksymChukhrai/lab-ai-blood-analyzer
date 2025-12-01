@@ -405,6 +405,8 @@
     "datePDF": "Date: ",
     "agePDF": "Age: ",
     "genderPDF": "Gender: ",
+    "readRecommendations": "Read recommendations",
+    "closeRecommendations": "Close recommendations",
     "summaryTitlePDF": "Recommendation Summary: "
   }
 }

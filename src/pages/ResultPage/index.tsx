@@ -1,4 +1,10 @@
-import { CircularProgress } from "@mui/material";
+import { useState } from "react";
+import {
+  CircularProgress,
+  useMediaQuery,
+  useTheme,
+  Collapse,
+} from "@mui/material";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { Trans, useTranslation } from "react-i18next";
 import { AnalysLayout } from "components/AnalysLayout";
@@ -7,6 +13,7 @@ import { STEPS } from "constants/steps";
 import errorIcon from "locals/error2.svg";
 import checkIcon from "locals/check3.svg";
 import arrow from "locals/arrow.svg";
+import arrow1 from "locals/arrow1.svg";
 import { AnalysisPdfDocument } from "./ResultPagePDF";
 import {
   PageContainer,
@@ -38,6 +45,18 @@ import {
   AssessmentText,
   BackButton,
   FooterActions,
+  MobileMarkersContainer,
+  MobileMarkerCard,
+  MobileMarkerHeader,
+  MobileMarkerInfo,
+  MobileMarkerValue,
+  MobileMarkerDetails,
+  MobileDetailBox,
+  MobileLabel,
+  MobileText,
+  ToggleRecommendationsButton,
+  MobileMarkerArrow,
+  CollapseContainer,
 } from "./styles";
 
 export const ResultPage = () => {
@@ -50,6 +69,18 @@ export const ResultPage = () => {
   } = useResultPage();
 
   const { t } = useTranslation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const [expandedMarker, setExpandedMarker] = useState<number | null>(null);
+  const [showRecommendations, setShowRecommendations] = useState(false);
+
+  const handleToggleMarker = (index: number) => {
+    setExpandedMarker(expandedMarker === index ? null : index);
+  };
+
+  const handleToggleRecommendations = () => {
+    setShowRecommendations(!showRecommendations);
+  };
 
   if (!analysisResult) {
     return (
@@ -60,6 +91,8 @@ export const ResultPage = () => {
       </AnalysLayout>
     );
   }
+
+  const shouldShowRecommendations = !isMobile || showRecommendations;
 
   return (
     <AnalysLayout currentStep={STEPS[3]}>
@@ -89,27 +122,74 @@ export const ResultPage = () => {
               {t("result.abnormal")}
             </StatusText>
           </StatusBox>
-          <MarkerTable>
-            <TableHeader>
-              <TableHeaderCell>{t("result.markerLabel")}</TableHeaderCell>
-              <TableHeaderCell>{t("result.valueLabel")}</TableHeaderCell>
-              <TableHeaderCell>{t("result.normalLabel")}</TableHeaderCell>
-              <TableHeaderCell>{t("result.recomendLabel")}</TableHeaderCell>
-            </TableHeader>
-            {analysisResult.markers.map((marker, index) => (
-              <TableRow key={index} status={marker.indicator}>
-                <TableCell>
-                  <StatusDot status={marker.indicator} />
-                  {marker.name}
-                </TableCell>
-                <TableCell>
-                  {marker.value} {marker.unit}
-                </TableCell>
-                <TableCell>{marker.normalRange}</TableCell>
-                <TableCell>{marker.recommendation}</TableCell>
-              </TableRow>
-            ))}
-          </MarkerTable>
+
+          {!isMobile ? (
+            <MarkerTable>
+              <TableHeader>
+                <TableHeaderCell>{t("result.markerLabel")}</TableHeaderCell>
+                <TableHeaderCell>{t("result.valueLabel")}</TableHeaderCell>
+                <TableHeaderCell>{t("result.normalLabel")}</TableHeaderCell>
+                <TableHeaderCell>{t("result.recomendLabel")}</TableHeaderCell>
+              </TableHeader>
+              {analysisResult.markers.map((marker, index) => (
+                <TableRow key={index} status={marker.indicator}>
+                  <TableCell>
+                    <StatusDot status={marker.indicator} />
+                    {marker.name}
+                  </TableCell>
+                  <TableCell>
+                    {marker.value} {marker.unit}
+                  </TableCell>
+                  <TableCell>{marker.normalRange}</TableCell>
+                  <TableCell>{marker.recommendation}</TableCell>
+                </TableRow>
+              ))}
+            </MarkerTable>
+          ) : (
+            <MobileMarkersContainer>
+              <TableHeader>
+                <TableHeaderCell>{t("result.markerLabel")}</TableHeaderCell>
+                <TableHeaderCell>{t("result.valueLabel")}</TableHeaderCell>
+              </TableHeader>
+              {analysisResult.markers.map((marker, index) => {
+                const isExpanded = expandedMarker === index;
+
+                return (
+                  <MobileMarkerCard key={index} status={marker.indicator}>
+                    <MobileMarkerHeader
+                      onClick={() => handleToggleMarker(index)}
+                    >
+                      <MobileMarkerInfo>
+                        <StatusDot status={marker.indicator} />
+                        <MobileMarkerValue>{marker.name}</MobileMarkerValue>
+                      </MobileMarkerInfo>
+
+                      <MobileMarkerValue>
+                        {marker.value} {marker.unit}
+                        <MobileMarkerArrow
+                          src={arrow1}
+                          alt="toggle"
+                          isExpanded={isExpanded}
+                        />
+                      </MobileMarkerValue>
+                    </MobileMarkerHeader>
+
+                    <Collapse in={isExpanded}>
+                      <MobileMarkerDetails>
+                        <MobileDetailBox>
+                          <MobileLabel>{t("result.normalLabel")}</MobileLabel>
+                          <MobileText>{marker.normalRange}</MobileText>
+
+                          <MobileLabel>{t("result.recomendLabel")}</MobileLabel>
+                          <MobileText>{marker.recommendation}</MobileText>
+                        </MobileDetailBox>
+                      </MobileMarkerDetails>
+                    </Collapse>
+                  </MobileMarkerCard>
+                );
+              })}
+            </MobileMarkersContainer>
+          )}
         </SectionBox>
 
         {analysisResult.userCommentResponse && (
@@ -123,41 +203,67 @@ export const ResultPage = () => {
           </SectionBox>
         )}
 
-        {analysisResult.recommendations.map((rec, index) => (
-          <SectionBox key={index} $variant="recommendations">
-            <SectionTitle $variant="question">
-              {rec.name} recommendation
-            </SectionTitle>
-            <SectionSubtitle>{t("result.recommendDisclaimer")}</SectionSubtitle>
-            <RecommendationGrid>
-              {rec.items.map((item, index) => (
-                <RecommendationBox key={index}>
-                  <CardImage src={checkIcon} alt={t("result.markerLabel")} />
-                  <CardBox>
-                    <CardTitle>{item.name}</CardTitle>
-                    <CardContent>{item.recommendations}</CardContent>
-                  </CardBox>
-                </RecommendationBox>
-              ))}
-            </RecommendationGrid>
-          </SectionBox>
-        ))}
+        {isMobile && !showRecommendations && (
+          <ToggleRecommendationsButton onClick={handleToggleRecommendations}>
+            {t("result.readRecommendations")}
+          </ToggleRecommendationsButton>
+        )}
 
-        <SectionBox $variant="medicalAssessment">
-          <SectionTitle $variant="medicalAssessment">
-            {t("result.medicalAssessment")}
-          </SectionTitle>
+        <Collapse
+          in={shouldShowRecommendations}
+          timeout={isMobile ? "auto" : 0}
+        >
+          <CollapseContainer>
+            {analysisResult.recommendations.map((rec, index) => (
+              <SectionBox key={index} $variant="recommendations">
+                <SectionTitle $variant="question">
+                  {rec.name} recommendation
+                </SectionTitle>
+                <SectionSubtitle>
+                  {t("result.recommendDisclaimer")}
+                </SectionSubtitle>
+                <RecommendationGrid>
+                  {rec.items.map((item, index) => (
+                    <RecommendationBox key={index}>
+                      <CardImage
+                        src={checkIcon}
+                        alt={t("result.markerLabel")}
+                      />
+                      <CardBox>
+                        <CardTitle>{item.name}</CardTitle>
+                        <CardContent>{item.recommendations}</CardContent>
+                      </CardBox>
+                    </RecommendationBox>
+                  ))}
+                </RecommendationGrid>
+              </SectionBox>
+            ))}
 
-          <AssessmentText>
-            <Trans i18nKey="result.overallHealthTitle" />
-            {analysisResult.finalAssessment.overallHealthStatus}
-          </AssessmentText>
+            <SectionBox $variant="medicalAssessment">
+              <SectionTitle $variant="medicalAssessment">
+                {t("result.medicalAssessment")}
+              </SectionTitle>
 
-          <AssessmentText>
-            <Trans i18nKey="result.summaryTitle" />
-            {analysisResult.finalAssessment.recommendationSummary}
-          </AssessmentText>
-        </SectionBox>
+              <AssessmentText>
+                <Trans i18nKey="result.overallHealthTitle" />
+                {analysisResult.finalAssessment.overallHealthStatus}
+              </AssessmentText>
+
+              <AssessmentText>
+                <Trans i18nKey="result.summaryTitle" />
+                {analysisResult.finalAssessment.recommendationSummary}
+              </AssessmentText>
+            </SectionBox>
+
+            {isMobile && (
+              <ToggleRecommendationsButton
+                onClick={handleToggleRecommendations}
+              >
+                {t("result.closeRecommendations")}
+              </ToggleRecommendationsButton>
+            )}
+          </CollapseContainer>
+        </Collapse>
 
         <WarningBox $position="footer">
           <img src={errorIcon} alt={t("icons.errorAlt")} />
