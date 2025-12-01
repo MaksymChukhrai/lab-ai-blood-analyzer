@@ -192,6 +192,7 @@ export const MobileText = styled(Typography)(({ theme }) => ({
   color: theme.colors.PRIMARY_DARK,
   fontWeight: theme.fontWeight.LIGHT,
   lineHeight: "normal",
+  marginBottom: "10px",
 }));
 
 export const TableHeader = styled(Box)(({ theme }) => ({
@@ -409,6 +410,12 @@ export const RecommendationBox = styled(Box)(({ theme }) => ({
     gap: "15px",
   },
 }));
+
+export const CollapseContainer = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  gap: "20px",
+});
 
 export const CardBox = styled(Box)({
   display: "flex",

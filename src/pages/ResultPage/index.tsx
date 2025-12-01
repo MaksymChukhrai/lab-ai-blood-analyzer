@@ -4,7 +4,6 @@ import {
   useMediaQuery,
   useTheme,
   Collapse,
-  Box,
 } from "@mui/material";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { Trans, useTranslation } from "react-i18next";
@@ -57,6 +56,7 @@ import {
   MobileText,
   ToggleRecommendationsButton,
   MobileMarkerArrow,
+  CollapseContainer,
 } from "./styles";
 
 export const ResultPage = () => {
@@ -178,9 +178,7 @@ export const ResultPage = () => {
                       <MobileMarkerDetails>
                         <MobileDetailBox>
                           <MobileLabel>{t("result.normalLabel")}</MobileLabel>
-                          <MobileText sx={{ marginBottom: "10px" }}>
-                            {marker.normalRange}
-                          </MobileText>
+                          <MobileText>{marker.normalRange}</MobileText>
 
                           <MobileLabel>{t("result.recomendLabel")}</MobileLabel>
                           <MobileText>{marker.recommendation}</MobileText>
@@ -215,7 +213,7 @@ export const ResultPage = () => {
           in={shouldShowRecommendations}
           timeout={isMobile ? "auto" : 0}
         >
-          <Box display="flex" flexDirection="column" gap="20px">
+          <CollapseContainer>
             {analysisResult.recommendations.map((rec, index) => (
               <SectionBox key={index} $variant="recommendations">
                 <SectionTitle $variant="question">
@@ -264,7 +262,7 @@ export const ResultPage = () => {
                 {t("result.closeRecommendations")}
               </ToggleRecommendationsButton>
             )}
-          </Box>
+          </CollapseContainer>
         </Collapse>
 
         <WarningBox $position="footer">
