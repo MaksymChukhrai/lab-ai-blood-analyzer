@@ -7,12 +7,20 @@ export const useLoader = () => {
   const handleBack = () => {
     navigate(PATHS.OPTION);
   };
-  const handleContinue = (nextLoaderStep: 1 | 2 = 1) => {
-    navigate(PATHS.LOADER, { state: { loaderStep: nextLoaderStep } });
+
+  const handleContinue = (
+    nextLoaderStep: 1 | 2 = 1,
+    waitingForApi: boolean = false,
+  ) => {
+    navigate(PATHS.LOADER, {
+      state: { loaderStep: nextLoaderStep, waitingForApi },
+    });
   };
 
-  const handleContinueSelf = () => {
-    navigate(PATHS.REVIEW);
+  const handleContinueSelf = (currentLoaderStep: 1 | 2) => {
+    const targetPath = currentLoaderStep === 2 ? PATHS.RESULT : PATHS.REVIEW;
+
+    navigate(targetPath);
   };
 
   return {
