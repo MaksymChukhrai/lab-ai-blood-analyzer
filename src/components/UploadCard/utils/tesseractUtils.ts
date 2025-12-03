@@ -6,6 +6,7 @@ export const extractTextFromFile = async (file: File): Promise<string> => {
     const imageUrl = URL.createObjectURL(file);
     const result = await Tesseract.recognize(imageUrl, OCR_LANGUAGES);
     URL.revokeObjectURL(imageUrl);
+
     return result.data.text;
   } catch {
     throw new Error("error.ocr");

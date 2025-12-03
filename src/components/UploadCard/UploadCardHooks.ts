@@ -16,6 +16,7 @@ import {
   selectUploadedFile,
   selectHasUploadedFile,
 } from "store/slices/uploadFileSlice";
+import { compressImage } from "components/UploadCard/utils/imageCompression";
 import { clearBloodMarkersData } from "store/slices/bloodMarkersSlice";
 import { clearSelectedOptions } from "store/slices/optionSlice";
 import { PATHS } from "constants/navigation";
@@ -120,10 +121,18 @@ export const useUploadCard = (uploadEnabled: boolean = true) => {
       }
 
       setErrorMessage(null);
-      setSelectedFile(file);
-      await extractTextFromFile(file);
-    },
 
+      // ✅ НОВОЕ: Compress image before OCR
+      try {
+        const compressedFile = await compressImage(file);
+        setSelectedFile(compressedFile); // Store compressed file
+        await extractTextFromFile(compressedFile);
+      } catch {
+        // If compression fails, use original file
+        setSelectedFile(file);
+        await extractTextFromFile(file);
+      }
+    },
     [extractTextFromFile],
   );
 

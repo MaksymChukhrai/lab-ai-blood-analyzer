@@ -2,9 +2,9 @@ import { defineConfig } from "vite";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 import react from "@vitejs/plugin-react";
 import path from "path";
-// https://vite.dev/config/
 
 export default defineConfig({
+  base: "/lab-ai-mobile-test/",
   plugins: [
     react(),
     nodePolyfills({
@@ -38,12 +38,17 @@ export default defineConfig({
     },
   },
   server: {
-    host: "0.0.0.0",
+    host: true, // Allow external access
     port: 5173,
     strictPort: true,
     watch: {
       usePolling: true,
     },
+    allowedHosts: [
+      ".ngrok-free.app", // Allow all ngrok domains
+      ".ngrok-free.dev", // Allow all ngrok dev domains
+      ".ngrok.io", // Legacy ngrok domains
+    ],
   },
   preview: {
     host: "0.0.0.0",
