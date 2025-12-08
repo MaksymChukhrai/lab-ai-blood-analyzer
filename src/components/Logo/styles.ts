@@ -77,7 +77,7 @@ export const LogoText = styled(Typography, {
     textShadow: `0px 4px 4px ${alpha(theme.colors.SHADOW_BLACK, 0.25)}`,
 
     ...($variant === "hero" && {
-      fontSize: theme.fontSizes.fontSize50,
+      fontSize: theme.fontSizes.fontSize48,
       textShadow: `0 4px 4px ${alpha(theme.colors.PRIMARY_DARK, 0.3)}`,
     }),
 

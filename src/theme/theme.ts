@@ -43,7 +43,6 @@ declare module "@mui/material/Typography" {
 }
 
 const FONT_SIZES = {
-  fontSize11: "11px",
   fontSize12: "12px",
   fontSize13: "13px",
   fontSize14: "14px",
@@ -58,7 +57,6 @@ const FONT_SIZES = {
   fontSize36: "36px",
   fontSize40: "40px",
   fontSize48: "48px",
-  fontSize50: "50px",
   fontSize55: "55px",
   fontSize64: "64px",
   fontSize150: "150px",
@@ -70,17 +68,8 @@ const SHADOWS = {
 };
 
 const LINE_HEIGHTS = {
-  lineHeight15: "15px",
-  lineHeight20: "20px",
   lineHeight24: "24px",
-  lineHeight25: "25px",
-  lineHeight28: "28px",
-  lineHeight30: "30px",
   lineHeight35: "35px",
-  lineHeight40: "40px",
-  lineHeight45: "45px",
-  lineHeight50: "50px",
-  lineHeight56: "56px",
   lineHeight70: "70px",
   lineHeight100: "100%",
 };
@@ -110,6 +99,7 @@ const COLORS = {
   SECONDARY_RED: "#BC0003",
   FOOTER_BG: "#05184D",
   SHADOW_BLACK: "#000000",
+  FRAME_YELLOW: "#FFD700",
 };
 
 export const theme = createTheme({
@@ -147,8 +137,8 @@ export const theme = createTheme({
     values: {
       xs: 0,
       sm: 600,
-      md: 900,
-      lg: 1200,
+      md: 950,
+      lg: 1250,
       xl: 1536,
     },
   },
