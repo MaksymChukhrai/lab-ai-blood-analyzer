@@ -16,10 +16,14 @@ import {
   selectUploadedFile,
   selectHasUploadedFile,
 } from "store/slices/uploadFileSlice";
+import { compressImage } from "components/UploadCard/utils/imageCompression";
 import { clearBloodMarkersData } from "store/slices/bloodMarkersSlice";
 import { clearSelectedOptions } from "store/slices/optionSlice";
 import { PATHS } from "constants/navigation";
-import { validateFile } from "components/UploadCard/utils/fileUtils";
+import {
+  validateFileType,
+  validateFileSize,
+} from "components/UploadCard/utils/fileUtils";
 import { extractTextFromPDF } from "components/UploadCard/utils/pdfUtils";
 
 export const useUploadCard = (uploadEnabled: boolean = true) => {
@@ -108,10 +112,10 @@ export const useUploadCard = (uploadEnabled: boolean = true) => {
 
   const handleFile = useCallback(
     async (file: File) => {
-      const error = validateFile(file);
+      const typeError = validateFileType(file);
 
-      if (error) {
-        setErrorMessage(error);
+      if (typeError) {
+        setErrorMessage(typeError);
         setSelectedFile(null);
         setOcrText(null);
         setShowLoader(false);
@@ -120,10 +124,40 @@ export const useUploadCard = (uploadEnabled: boolean = true) => {
       }
 
       setErrorMessage(null);
-      setSelectedFile(file);
-      await extractTextFromFile(file);
-    },
 
+      try {
+        const compressedFile = await compressImage(file);
+
+        const sizeError = validateFileSize(compressedFile);
+
+        if (sizeError) {
+          setErrorMessage(sizeError);
+          setSelectedFile(null);
+          setOcrText(null);
+          setShowLoader(false);
+
+          return;
+        }
+
+        setSelectedFile(compressedFile);
+        await extractTextFromFile(compressedFile);
+      } catch (error) {
+        console.error("Compression or OCR failed:", error);
+
+        const sizeError = validateFileSize(file);
+        if (sizeError) {
+          setErrorMessage(sizeError);
+          setSelectedFile(null);
+          setOcrText(null);
+          setShowLoader(false);
+
+          return;
+        }
+
+        setSelectedFile(file);
+        await extractTextFromFile(file);
+      }
+    },
     [extractTextFromFile],
   );
 

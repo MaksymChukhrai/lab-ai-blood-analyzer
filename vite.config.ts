@@ -2,7 +2,6 @@ import { defineConfig } from "vite";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 import react from "@vitejs/plugin-react";
 import path from "path";
-// https://vite.dev/config/
 
 export default defineConfig({
   plugins: [
@@ -38,7 +37,7 @@ export default defineConfig({
     },
   },
   server: {
-    host: "0.0.0.0",
+    host: true,
     port: 5173,
     strictPort: true,
     watch: {

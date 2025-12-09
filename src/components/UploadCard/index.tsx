@@ -114,6 +114,7 @@ export const UploadCard = ({ mode = UPLOAD_MODE.PREVIEW }: UploadCardProps) => {
                   ref={fileInputRef}
                   type="file"
                   accept={FILE_INPUTS}
+                  capture="environment"
                   onChange={handleFileChange}
                 />
                 {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}

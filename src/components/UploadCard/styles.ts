@@ -185,6 +185,7 @@ export const LoaderBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     height: "77px",
     borderStyle: "dashed",
+    border: `1px dashed ${theme.colors.PRIMARY_DARK}`,
   },
 }));
 
